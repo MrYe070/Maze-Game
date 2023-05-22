@@ -16,16 +16,16 @@ public class Maze {
             System.out.print("\033[H\033[2J");
             display(map, tiles, playerSprite, playerRow, playerCol);
             String input = in.nextLine();
-            if (input.equals("w") && map[playerRow - 1][playerCol] == 0) {
+            if (input.equals("w") && playerRow - 1 >= 0 && map[playerRow - 1][playerCol] == 0) {
                 playerRow--;
             }
-            else if (input.equals("s") && map[playerRow + 1][playerCol] == 0) {
+            else if (input.equals("s") && playerRow + 1 < map.length && map[playerRow + 1][playerCol] == 0) {
                 playerRow++;
             }
-            else if (input.equals("a") && map[playerRow][playerCol - 1] == 0) {
+            else if (input.equals("a") && playerCol - 1 >= 0 && map[playerRow][playerCol - 1] == 0) {
                 playerCol--;
             }
-            else if (input.equals("d") && map[playerRow][playerCol + 1] == 0) {
+            else if (input.equals("d") && playerCol + 1 < map[playerRow].length && map[playerRow][playerCol + 1] == 0) {
                 playerCol++;
             }
         }
