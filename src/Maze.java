@@ -16,16 +16,16 @@ public class Maze {
             System.out.print("\033[H\033[2J");
             display(map, tiles, playerSprite, playerRow, playerCol);
             String input = in.nextLine();
-            if (input.equals("w") && playerRow - 1 >= 0 && map[playerRow - 1][playerCol] == 0) {
+            if (input.equals("w") && canMove(map, playerRow - 1, playerCol)) {
                 playerRow--;
             }
-            else if (input.equals("s") && playerRow + 1 < map.length && map[playerRow + 1][playerCol] == 0) {
+            else if (input.equals("s") && canMove(map, playerRow + 1, playerCol)) {
                 playerRow++;
             }
-            else if (input.equals("a") && playerCol - 1 >= 0 && map[playerRow][playerCol - 1] == 0) {
+            else if (input.equals("a") && canMove(map, playerRow, playerCol - 1)) {
                 playerCol--;
             }
-            else if (input.equals("d") && playerCol + 1 < map[playerRow].length && map[playerRow][playerCol + 1] == 0) {
+            else if (input.equals("d") && canMove(map, playerRow, playerCol + 1)) {
                 playerCol++;
             }
         }
@@ -68,5 +68,22 @@ public class Maze {
             }
             System.out.println();
         }
+    }
+
+    /**
+     * Convenience method to check whether player can move to specified location.
+     * @param map Game map.
+     * @param row Location row index.
+     * @param col Location column index.
+     * @return True if can move there.
+     */
+    public static boolean canMove(int[][] map, int row, int col) {
+        // Check whether within bounds.
+        if (row < 0 || row >= map.length)
+            return false;
+        if (col < 0 || col >= map[row].length)
+            return false;
+        
+        return map[row][col] == 0;
     }
 }
