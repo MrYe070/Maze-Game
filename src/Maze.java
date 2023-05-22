@@ -15,19 +15,31 @@ public class Maze {
         while (!done) {
             System.out.print("\033[H\033[2J");
             display(map, tiles, playerSprite, playerRow, playerCol);
+
+            // Get input.
             String input = in.nextLine();
-            if (input.equals("w") && canMove(map, playerRow - 1, playerCol)) {
-                playerRow--;
+            int rowMove = 0;
+            int colMove = 0;
+            if (input.equals("w")) {
+                rowMove--;
             }
-            else if (input.equals("s") && canMove(map, playerRow + 1, playerCol)) {
-                playerRow++;
+            else if (input.equals("s")) {
+                rowMove++;
             }
-            else if (input.equals("a") && canMove(map, playerRow, playerCol - 1)) {
-                playerCol--;
+            else if (input.equals("a")) {
+                colMove--;
             }
-            else if (input.equals("d") && canMove(map, playerRow, playerCol + 1)) {
-                playerCol++;
+            else if (input.equals("d")) {
+                colMove++;
             }
+
+            // Update player position, if valid move.
+            if (canMove(map, playerRow + rowMove, playerCol + colMove)) {
+                playerRow += rowMove;
+                playerCol += colMove;
+            }
+
+            // TODO: Check whether landed at finish!
         }
     }
 
@@ -56,6 +68,9 @@ public class Maze {
      * @param playerCol Player column position.
      */
     public static void display(int[][] map, String[] tiles, String playerSprite, int playerRow, int playerCol) {
+        
+        // TODO: Display borders around map.
+
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (i == playerRow && j == playerCol) { // Player
