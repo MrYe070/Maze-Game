@@ -61,14 +61,14 @@ public class Maze {
 
     /**
      * Displays map and player.
-     * @param map Game map.
+     * @param map Game map with tile codes.
      * @param tiles Map tiles. Each tile corresponds to a numeric code, equal to its position in this array.
      * @param playerSprite Player sprite.
      * @param playerRow Player row position.
      * @param playerCol Player column position.
      */
     public static void display(int[][] map, String[] tiles, String playerSprite, int playerRow, int playerCol) {
-        
+
         // TODO: Display borders around map.
 
         for (int i = 0; i < map.length; i++) {
@@ -83,6 +83,34 @@ public class Maze {
             }
             System.out.println();
         }
+    }
+
+    /**
+     * Generate 2D grid of tiles/sprites to display.
+     * @param map Game map with tile codes.
+     * @param tiles Map tiles. Each tile corresponds to a numeric code, equal to its position in this array.
+     * @param playerSprite Player sprite.
+     * @param playerRow Player row position.
+     * @param playerCol Player column position.
+     * @return 2D grid of tiles/sprites to display.
+     */
+    public static String[][] render(int[][] map, String[] tiles, String playerSprite, int playerRow, int playerCol) {
+        String[][] gameGrid = new String[map.length][];
+
+        for (int i = 0; i < map.length; i++) {
+            gameGrid[i] = new String[map[i].length];
+            for (int j = 0; j < map[i].length; j++) {
+                if (i == playerRow && j == playerCol) { // Player
+                    gameGrid[i][j] = playerSprite;
+                }
+                else {  // Display correct tile according to tile code in game map.
+                    int tileCode = map[i][j];
+                    gameGrid[i][j] = tiles[tileCode];
+                }
+            }
+        }
+
+        return gameGrid;
     }
 
     /**
